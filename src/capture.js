@@ -7,6 +7,7 @@ navigator.getUserMedia = navigator.webkitGetUserMedia;
 const countdown = require('./countdown')
 const video = require('./video')
 const images = remote.require('./images')
+const flash = require('./flash')
 
 function formatImgTag(document, bytes) {
     const div = document.createElement('div');
@@ -27,6 +28,7 @@ window.addEventListener('DOMContentLoaded', _ => {
     const recordEl = document.getElementById('record');
     const photosEl = document.querySelector('.photosContainer');
     const counterEl = document.getElementById('counter');
+    const flashEl = document.getElementById('flash');
 
     const ctx = canvasEl.getContext('2d');
 
@@ -35,6 +37,7 @@ window.addEventListener('DOMContentLoaded', _ => {
 
     recordEl.addEventListener('click', _ => {
         countdown.start(counterEl, 3, _ => {
+            flash(flashEl);
             const bytes = video.captureBytes(videoEl, ctx, canvasEl);
             ipc.send('image-captured', bytes);
             photosEl.appendChild(formatImgTag(document, bytes));
@@ -66,7 +69,5 @@ window.addEventListener('DOMContentLoaded', _ => {
 
 
 ipc.on('image-removed', (evt, index) => {
-    console.log(evt, index);
-    console.log(Array.from(document.querySelectorAll('.photo')));
     document.getElementById('photos').removeChild(Array.from(document.querySelectorAll('.photo'))[index]);
 })
