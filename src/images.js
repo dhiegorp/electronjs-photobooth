@@ -17,6 +17,7 @@ exports.save = (picturesPath, contents, done) => {
   })
 }
 
+
 exports.getPicturesDir = app => {
   return path.join(app.getPath('pictures'), 'photobombth')
 }

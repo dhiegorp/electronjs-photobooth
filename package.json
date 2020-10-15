@@ -4,12 +4,15 @@
   "description": "Photobooth App",
   "main": "src/main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "build": "rimraf Photobombth-* && electron-packager . --platform=darwin,win32,linux --arch=x64 --icon=hat01"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "electron-prebuilt": "^1.4.13"
+    "electron-packager": "^15.1.0",
+    "electron-prebuilt": "^1.4.13",
+    "rimraf": "^3.0.2"
   }
 }
